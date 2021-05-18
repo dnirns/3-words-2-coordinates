@@ -12,3 +12,5 @@ To-do:
 - More detailed location data.
 - Link to what3words map.
 - Show on map in app (Google / Mapbox)?
+
+WIP link: https://3-words-2-coordinates.vercel.app

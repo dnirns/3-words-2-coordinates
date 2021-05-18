@@ -18,12 +18,13 @@ const Converter = () => {
 
   return (
     <div className='container mx-auto text-center py-10'>
+      <p className='py-4 text-sm italic'>Search a 'what3words' address:</p>
       <div className=''>
         <what3words-autosuggest
           id='autosuggest'
           debug={true}
           return-coordinates={true}
-          placeholder='e.g. daring.lion.race'
+          placeholder='eg: chainsaw.proved.emotional'
         />
       </div>
 
