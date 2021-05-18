@@ -27,10 +27,10 @@ const Converter = () => {
   return (
     <div className='container mx-auto text-center'>
       <div>
-        <input
-          className='border text-center border-black rounded m-10 px-4 py-2'
-          value={words}
-          onChange={(e) => setWords(e.target.value)}
+        {/* autocomplete input from w3w api docs */}
+        <what3words-autosuggest
+          id='autosuggest'
+          placeholder='e.g. daring.lion.race'
         />
       </div>{' '}
       <button
