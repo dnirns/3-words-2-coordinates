@@ -5,19 +5,17 @@ const Converter = () => {
   const [words, setWords] = useState('')
   const [place, setPlace] = useState()
 
-  const getLocation = async () => {
-    try {
-      const res = await axios.get(
-        `https://api.what3words.com/v3/convert-to-coordinates?key=${process.env.REACT_APP_WORDS_API}&words=${words}&format=json`
-      )
-      setPlace(res.data)
-      console.log(res.data)
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
-
   useEffect(() => {
+    const getLocation = async () => {
+      try {
+        const res = await axios.get(
+          `https://api.what3words.com/v3/convert-to-coordinates?key=${process.env.REACT_APP_WORDS_API}&words=${words}&format=json`
+        )
+        setPlace(res.data)
+      } catch (error) {
+        console.error(error.message)
+      }
+    }
     const input = document.getElementById('autosuggest')
     if (input) {
       input.addEventListener('select', (value) => {
