@@ -1,20 +1,31 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Converter = () => {
   const [words, setWords] = useState('')
-  const [lat, setLat] = useState('')
-  const [lng, setLng] = useState('')
+  const [place, setPlace] = useState()
+
+  const getLocation = async () => {
+    try {
+      const res = await axios.get(
+        `https://api.what3words.com/v3/convert-to-coordinates?key=${process.env.REACT_APP_WORDS_API}&words=${words}&format=json`
+      )
+      setPlace(res.data)
+      console.log(res.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   useEffect(() => {
     const input = document.getElementById('autosuggest')
     if (input) {
       input.addEventListener('select', (value) => {
         setWords(value.detail)
-        setLat(value.target.coordinatesLat)
-        setLng(value.target.coordinatesLng)
       })
+      getLocation()
     }
-  })
+  }, [words])
 
   return (
     <div className='container mx-auto text-center py-10'>
@@ -29,7 +40,7 @@ const Converter = () => {
       </div>
 
       <div>
-        {words && (
+        {place && (
           <>
             <p className='py-6'>
               Latitude / Longitude for <em className='font-bold'>what3words</em>{' '}
@@ -37,8 +48,9 @@ const Converter = () => {
               <span className='text-red-400 italic font-bold'>"{words}"</span>
             </p>
             <p className='font-bold text-4xl py-4 italic'>
-              {lat}, {lng}
+              {place.coordinates.lat}, {place.coordinates.lng}
             </p>
+            <p>{place.nearestPlace}</p>
           </>
         )}
       </div>
